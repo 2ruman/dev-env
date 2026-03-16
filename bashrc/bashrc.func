@@ -1,0 +1,12 @@
+#!/bin/bash
+
+alias_safe() {
+    local ali="$1"
+    local cmd="$2"
+
+    if type "$ali" &>/dev/null ; then
+        echo "$ali" is already used: $(type "$ali" | sed -e 's/^"$ali" is //')
+    else
+        alias "$ali=$cmd"
+    fi
+}
