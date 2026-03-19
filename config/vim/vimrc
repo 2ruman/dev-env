@@ -1,0 +1,13 @@
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+
+set number
+set clipboard=unnamedplus
+set smartindent
+set tabstop=4
+set expandtab
+set shiftwidth=4
+
+nnoremap <F2> :set number!<CR>
+nnoremap <F3> :set relativenumber!<CR>
+
