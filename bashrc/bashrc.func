@@ -30,6 +30,18 @@ xcat() {
     cat "$fpath" | xsel -b
 }
 
+# X-selected cd
+xcd() { cd $(xsel -b); }
+
+# X-selected pwd
+xpwd() { pwd | tr -d '\n' | xsel -b; }
+
+# X-selected realpath
+xrealpath() {
+    local _realpath=$(realpath ${1:-$PWD})
+    echo -n "$_realpath" | xsel -b
+}
+
 alias_safe() {
     local ali_cmd="$1"
     local ali=${ali_cmd%%=*}
