@@ -1,5 +1,5 @@
 
-export MY_BRC_HOME=$(realpath $(dirname "$0"))
+export MY_BRC_HOME=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 
 export MY_WORLD=/truman
 export MY_BIN=$MY_WORLD/bin
