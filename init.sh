@@ -4,8 +4,8 @@ RED='\033[0;31m'    # Red
 GRN='\033[0;32m'    # Green
 NOC='\033[0m'       # No Color(=Reset)
 
-log_step() { echo -e "${GRN}\U2192${NOC} ${*}"; }
-log_erro() { echo -e "${RED}\U0021${NOC} ${*}"; }
+log_step() { echo -e "\n${GRN}\U2192${NOC} ${*}"; }
+log_erro() { echo -e "\n${RED}\U0021${NOC} ${*}"; }
 exit_err() {
     [ $? -ne 0 ] && log_erro "Failed to init your world" && exit 1
 }
@@ -41,8 +41,13 @@ if [ "$mnt_status" -ne 0 ]; then
     sudo mount -a && sudo systemctl daemon-reload
 fi
 
-log_step "Moving dev-environment to user-root directory"
-mv ~/denv/ /$U/
+if [ ! -d /$U/denv ]; then
+    log_step "Moving dev-environment to user-root directory"
+    mv ~/denv/ /$U/
+fi
+
+log_step "Updating dev-environment"
+cd /$U/denv && git pull
 
 log_step "Preparing read-only 2ruman directory"
 ROD=/$U/ro
@@ -60,7 +65,12 @@ else
     git pull
 fi
 
+log_step "Preparing read-only tooling directory"
 cd $ROD/
-ln -s $RO2/$REPO/bash/tooling $ROD/tooling
+if [[ ! -h $ROD/tooling ]]; then
+    ln -s $RO2/$REPO/bash/tooling $ROD/tooling
+elif [[ "$RO2/$REPO/bash/tooling" != "$(readlink $ROD/tooling)" ]]; then
+    log_erro "Check link status of tooling directory" && exit 1
+fi
 
 echo "Done"
