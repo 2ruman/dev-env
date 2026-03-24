@@ -1,0 +1,2 @@
+alias openbrc="vi ~/.bashrc"
+alias srcbrc="source ~/.bashrc"
