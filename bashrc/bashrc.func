@@ -4,7 +4,7 @@ _brc_log() { echo -e "[\033[0;32mBASHRC\033[0m] ${*}"; }
 _brc_date() { date +%Y%m%d_%H%M%S; }
 
 # backed-Open BashRC(~/.bashrc) file
-openbrc() {
+_openbrc() {
     local bak_file="$HOME/.bashrc.$(_brc_date).bak"
     cp "$HOME/.bashrc" "$bak_file"
     vi "$HOME/.bashrc"
