@@ -2,7 +2,7 @@
 
 set -e
 
-cp ./bashrc.func ./test.tmp
+cp ../bashrc.func ./test.tmp
 
 trap 'rm -f ./test.tmp' EXIT
 

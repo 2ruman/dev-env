@@ -17,13 +17,16 @@ BODY=$(cat << EOF
 ${STX}--------------------------------------------------------------------
 
 source /${U}/denv/bashrc/init.rc
-source /${U}/denv/bashrc/bashrc.alias
 source /${U}/denv/bashrc/bashrc.func
+source /${U}/denv/bashrc/bashrc.alias
+source /${U}/denv/bashrc/work/bashrc.alias
 
 ${ETX}--------------------------------------------------------------------
 EOF
 )
 SAFE_BODY=${BODY//$'\n'/\\n}
+
+_brc_log "Initialize bashrc for $U"
 
 if grep -q "$STX" "$BASHRC_FILE"; then
     _brc_log "STX matched"
@@ -31,6 +34,7 @@ if grep -q "$STX" "$BASHRC_FILE"; then
         /$STX/s|.*|$SAFE_BODY|
         //!d
     }" "$BASHRC_FILE"
+    source "$BASHRC_FILE"
 else
     _brc_log "STX not matched..."
     sed -i.bak "0,/esac/s||&\n\n$SAFE_BODY|" $BASHRC_FILE

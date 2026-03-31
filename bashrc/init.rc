@@ -19,8 +19,16 @@ export MY_WORKSPACE=$MY_WORLD/workspace
 
 alias $MY_NAME="cd $MY_WORLD"
 
+set -o vi
+
 PATH=\
 $MY_WORLD/bin:\
 $PATH
+
+_temp_path="$HOME/.local/bin"
+
+if [[ ":$PATH:" != *":$_temp_path:"* ]]; then
+    PATH="$PATH:$_temp_path"
+fi
 
 source $MY_BRC_HOME/bashrc.func
