@@ -126,6 +126,8 @@ EOF
 next "$(cat << EOF
 sudo apt install -y synaptic
 sudo apt install -y net-tools
+sudo apt install -y exiftool
+sudo apt install -y figlet
 sudo apt install -y gnome-tweaks
 sudo apt install -y gnome-screenshot
 sudo apt install -y ranger
